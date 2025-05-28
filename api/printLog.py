@@ -12,10 +12,10 @@ TELEGRAM_API = f"https://api.telegram.org/bot{BOT_TOKEN}"
 def send_log(text):
     if is_debug_mode == "1":
         payload = {
-        "chat_id": admin_id,
-        "text": escape(text),
-        "parse_mode": "MarkdownV2",
-    }
+            "chat_id": admin_id,
+            "text": escape(text),
+            "parse_mode": "MarkdownV2",
+        }
         requests.post(f"{TELEGRAM_API}/sendMessage", data=payload)
 
 
