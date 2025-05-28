@@ -36,12 +36,7 @@ def handle_message(update_data):
     #    strupdate_data = str(update_data)
     #    start = strupdate_data.find("\'id\': ")
     #    from_id = strupdate_data[start + 6: start + 16]
-    #    send_message(from_id,
-    f"You have sent an unknown event. "  # Memulai string di baris baru
-    f"Please send the following information to the bot administrator.\n"
-    f"您发送了一个未知事件，请把下面信息发送至bot管理员。\n\n"
-    f"{update_data}\n"
-    f"{e}")    
+    #    send_message(from_id, f"You have sent an unknown event. Please send the following information to the bot administrator.\n{update_data}\n{e}")
     #    send_message(admin_id, f"收到了一个未知事件，原文为：\n{update_data}\n错误为：\n{e}")
 
     update = Update(update_data)
