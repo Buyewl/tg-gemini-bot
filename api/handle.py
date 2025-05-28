@@ -15,7 +15,7 @@ from .auth import is_authorized
 from .command import excute_command
 from .context import ChatManager, ImageChatManger
 from .telegram import Update, send_message
-from .printLog import send_log,send_image_log
+from .printLog import send_log, send_image_log
 # api/handle.py (Tambahkan di bagian atas file bersama import lainnya)
 from .config import (
     event_received, group, the_content_sent_is, the_reply_content_is,
@@ -35,12 +35,12 @@ def handle_message(update_data):
     # except  Exception as e:
     #    strupdate_data = str(update_data)
     #    start = strupdate_data.find("\'id\': ")
-    #    from_id = strupdate_data[start+6:start+16]
+    #    from_id = strupdate_data[start + 6: start + 16]
     #    send_message(from_id, f"You have sent an unknown event. Please send the following information to the bot administrator.\n您发送了一个未知事件，请把下面信息发送至bot管理员。\n\n{update_data}\n{e}")
     #    send_message(admin_id, f"收到了一个未知事件，原文为：\n{update_data}\n错误为：\n{e}")
 
     update = Update(update_data)
-    if update.is_group :
+    if update.is_group:
         log = f"{event_received}\n@{update.user_name} id:`{update.from_id}` {group} @{update.group_name} id:`{update.chat_id}`\n{the_content_sent_is}\n{update.text}\n```json\n{update_data}```"
     else:
         log = f"{event_received}\n@{update.user_name} id:`{update.from_id}`\n{the_content_sent_is}\n{update.text}\n```json\n{update_data}```"
@@ -51,7 +51,7 @@ def handle_message(update_data):
         response_text = excute_command(update.from_id, update.text, update.from_type, update.chat_id)
         if response_text!= "":
             send_message(update.chat_id, response_text)
-            if update.is_group :
+            if update.is_group:
                 log = f"@{update.user_name} id:`{update.from_id}` {group} @{update.group_name} id:`{update.chat_id}`{the_content_sent_is}\n{update.text}\n{the_reply_content_is}\n{response_text}"
             else:
                 log = f"@{update.user_name} id:`{update.from_id}`{the_content_sent_is}\n{update.text}\n{the_reply_content_is}\n{response_text}"
