@@ -16,7 +16,14 @@ from .command import excute_command
 from .context import ChatManager, ImageChatManger
 from .telegram import Update, send_message
 from .printLog import send_log,send_image_log
-from .config import *
+# api/handle.py (Tambahkan di bagian atas file bersama import lainnya)
+from .config import (
+    event_received, group, the_content_sent_is, the_reply_content_is,
+    group_no_permission_info, no_rights_to_use, user_no_permission_info,
+    GROUP_MODE, prompt_new_info, prompt_new_threshold,
+    the_logarithm_of_historical_conversations_is, the_accompanying_message_is,
+    unable_to_recognize_content_sent, send_unrecognized_content
+)
 
 chat_manager = ChatManager()
 
