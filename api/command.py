@@ -12,10 +12,10 @@ from .printLog import send_log
 from .telegram import send_message
 
 
-
 def help():
     result = f"{help_text}\n\n{command_list}"
     return result
+
 
 def list_models():
     for m in genai.list_models():
@@ -26,31 +26,38 @@ def list_models():
             print(str(m.name))
     return ""
 
+
 def get_my_info(id):
     return f"your telegram id is: `{id}`"
+
 
 def get_group_info(type, chat_id):
     if type == "supergroup":
         return f"this group id is: `{chat_id}`"
     return "Please use this command in a group"
 
+
 def get_allowed_users():
     send_log(f"```json\n{ALLOWED_USERS}```")
     return ""
+
 
 def get_allowed_groups():
     send_log(f"```json\n{ALLOWED_GROUPS}```")
     return ""
 
+
 def get_API_key():
     send_log(f"```json\n{GOOGLE_API_KEY}```")
     return ""
+
 
 def speed_test(id):
     """ This command seems useless, but it must be included in every robot I make. """
     send_message(id, "开始测速")
     sleep(5)
     return "测试完成，您的5G速度为：\n**114514B/s**"
+
 
 def send_message_test(id, command):
     if not is_admin(id):
@@ -68,6 +75,7 @@ def send_message_test(id, command):
         return
     send_log("success")
     return ""
+
 
 def excute_command(from_id, command, from_type, chat_id):
     if command.startswith("start") or command.startswith("help"):
