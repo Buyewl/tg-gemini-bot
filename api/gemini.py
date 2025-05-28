@@ -25,6 +25,7 @@ def list_models() -> None:
         if "generateContent" in m.supported_generation_methods:
             print(m.name)
 
+
 """ This function is deprecated """
 def generate_content(prompt: str) -> str:
     """generate text from prompt"""
