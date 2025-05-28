@@ -27,6 +27,8 @@ def list_models() -> None:
 
 
 """ This function is deprecated """
+
+
 def generate_content(prompt: str) -> str:
     """generate text from prompt"""
     try:
