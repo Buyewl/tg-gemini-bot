@@ -8,6 +8,7 @@ is_debug_mode = IS_DEBUG_MODE
 
 TELEGRAM_API = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
+
 def send_log(text):
     if is_debug_mode == "1":
             payload = {
