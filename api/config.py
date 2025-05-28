@@ -11,21 +11,21 @@ GOOGLE_API_KEY = split(r'[ ,;，；]+', os.environ.get("GOOGLE_API_KEY"))
 ALLOWED_USERS = split(r'[ ,;，；]+', os.getenv("ALLOWED_USERS", '').replace("@", "").lower())
 ALLOWED_GROUPS = split(r'[ ,;，；]+', os.getenv("ALLOWED_GROUPS", '').replace("@", "").lower())
 
-#Whether to push logs and enable some admin commands
+# Whether to push logs and enable some admin commands
 IS_DEBUG_MODE = os.getenv("IS_DEBUG_MODE", '0')
-#The target account that can execute administrator instructions and log push can use /get_my_info to obtain the ID.
+# The target account that can execute administrator instructions and log push can use /get_my_info to obtain the ID.
 ADMIN_ID = os.getenv("ADMIN_ID", "5517251313")
 
-#Determines whether to verify identity. If 0, anyone can use the bot. It is enabled by default.
+# Determines whether to verify identity. If 0, anyone can use the bot. It is enabled by default.
 AUCH_ENABLE = os.getenv("AUCH_ENABLE", "1")
 
-#"1"to use the same chat history in the group, "2"to record chat history individually for each person
+# "1"to use the same chat history in the group, "2"to record chat history individually for each person
 GROUP_MODE = os.getenv("GROUP_MODE=", "1")
 
-#After setting up 3 rounds of dialogue, prompt the user to start a new dialogue
+# After setting up 3 rounds of dialogue, prompt the user to start a new dialogue
 prompt_new_threshold = int(3)
 
-#The default prompt when the photo has no accompanying text
+# The default prompt when the photo has no accompanying text
 defaut_photo_caption = "describe this picture"
 
 """ Below is some text related to the user """
