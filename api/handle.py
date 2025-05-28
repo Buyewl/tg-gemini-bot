@@ -42,8 +42,7 @@ def handle_message(update_data):
     f"Please send the following information to the bot administrator.\n"
     f"您发送了一个未知事件，请把下面信息发送至bot管理员。\n\n"
     f"{update_data}\n"  # Placeholder f-string di baris terpisah
-    f"{e}"              # Placeholder f-string lainnya
-)    
+    f"{e}"              # Placeholder f-string lainnya)    
     #    send_message(admin_id, f"收到了一个未知事件，原文为：\n{update_data}\n错误为：\n{e}")
 
     update = Update(update_data)
