@@ -30,9 +30,9 @@ chat_manager = ChatManager()
 
 def handle_message(update_data):
 
-    #try:
+    # try:
     #    update = update_data["message"]["from"]["id"]
-    #except  Exception as e:
+    # except  Exception as e:
     #    strupdate_data = str(update_data)
     #    start = strupdate_data.find("\'id\': ")
     #    from_id = strupdate_data[start+6:start+16]
