@@ -1,7 +1,6 @@
 from .config import ALLOWED_USERS, ADMIN_ID, AUCH_ENABLE, ALLOWED_GROUPS
 
 
-
 def is_authorized(is_group, from_id: int, user_name: str, chat_id, group_name) -> bool:
     if AUCH_ENABLE == "0":
         return True
