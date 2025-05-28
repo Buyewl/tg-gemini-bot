@@ -12,6 +12,7 @@ from .printLog import send_log
 from .telegram import send_message
 
 
+
 def help():
     result = f"{help_text}\n\n{command_list}"
     return result
