@@ -27,4 +27,3 @@ def send_image_log(text,imageID):
         "photo": imageID
     }
         requests.post(f"{TELEGRAM_API}/sendPhoto", data=payload)
-
