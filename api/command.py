@@ -3,7 +3,11 @@
 import google.generativeai as genai
 
 from .auth import is_admin
-from .config import *
+# api/command.py (Tambahkan di bagian atas file bersama import lainnya)
+from .config import (
+    help_text, command_list, admin_auch_info, command_format_error_info, debug_mode_info,
+    ALLOWED_USERS, ALLOWED_GROUPS, GOOGLE_API_KEY, IS_DEBUG_MODE
+)
 from .printLog import send_log
 from .telegram import send_message
 
