@@ -40,7 +40,7 @@ command_list = (
     "/get_allowed_users Get the list of users that are allowed to use the bot (admin only)\n"
     "/get_allowed_groups Get the list of groups that are allowed to use the bot (admin only)\n"
     "/list_models list_models (admin only)\n"
-    "/get_api_key Get the list of gemini's apikeys. It is currently useless. "
+    "/get_api_key Get the list of gemini's apikeys. It is currently useless."
     "Multiple keys may be added to automatically switch in the future.(admin only)\n" 
     "/help Get help\n"
     "/5g_test :"
