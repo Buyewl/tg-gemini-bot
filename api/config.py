@@ -33,16 +33,18 @@ help_text = (
     """Selamat datang di bot Gemini! Saya adalah bot AI Anda. """
     """Berikut adalah beberapa perintah yang bisa Anda gunakan:"""
 )
-command_list = ("/new Start a new chat\n"
-"/get_my_info Get personal information\n"
-"/get_group_info Get group information (group only)\n"
-"/get_allowed_users Get the list of users that are allowed to use the bot (admin only)\n"
-"/get_allowed_groups Get the list of groups that are allowed to use the bot (admin only)\n"
-"/list_models list_models (admin only)\n"
-"/get_api_key Get the list of gemini's apikeys. It is currently useless. "
-"Multiple keys may be added to automatically switch in the future.(admin only)\n" 
-"/help Get help\n"
-"/5g_test :")
+command_list = (
+    "/new Start a new chat\n"
+    "/get_my_info Get personal information\n"
+    "/get_group_info Get group information (group only)\n"
+    "/get_allowed_users Get the list of users that are allowed to use the bot (admin only)\n"
+    "/get_allowed_groups Get the list of groups that are allowed to use the bot (admin only)\n"
+    "/list_models list_models (admin only)\n"
+    "/get_api_key Get the list of gemini's apikeys. It is currently useless. "
+    "Multiple keys may be added to automatically switch in the future.(admin only)\n" 
+    "/help Get help\n"
+    "/5g_test :"
+)
 admin_auch_info = "You are not the administrator or your administrator ID is set incorrectly!!!"
 debug_mode_info = "Debug mode is not enabled!"
 command_format_error_info = "Command format error"
