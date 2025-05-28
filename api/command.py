@@ -19,7 +19,7 @@ def help():
 
 def list_models():
     for m in genai.list_models():
-        #send_log(str(m))
+        # send_log(str(m))
         print(str(m))
         if 'generateContent' in m.supported_generation_methods:
             send_log(str(m.name))
