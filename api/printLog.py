@@ -4,7 +4,7 @@ from md2tgmd import escape
 from .config import IS_DEBUG_MODE, ADMIN_ID, BOT_TOKEN
 
 admin_id = ADMIN_ID
-is_debug_mode =IS_DEBUG_MODE
+is_debug_mode = IS_DEBUG_MODE
 
 TELEGRAM_API = f"https://api.telegram.org/bot{BOT_TOKEN}"
 
