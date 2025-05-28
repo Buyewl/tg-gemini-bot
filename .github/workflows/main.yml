@@ -1,48 +1,85 @@
-name: Bot Runner
+# .github/workflows/main.yml
+
+name: CI for tg-gemini-bot
 
 on:
   push:
     branches:
-      - main
+      - main  # Ganti dengan branch utama repositori Anda (misal: master)
   pull_request:
     branches:
-      - main
-  # Ini memungkinkan Anda menjalankan workflow secara manual dari tab 'Actions'
-  workflow_dispatch:
+      - main  # Ganti dengan branch utama repositori Anda
+  workflow_dispatch: # Memungkinkan trigger manual dari tab 'Actions' di GitHub
 
 jobs:
-  run-bot:
-    runs-on: ubuntu-latest
+  build_and_lint:
+    runs-on: ubuntu-latest # Menjalankan job di lingkungan Ubuntu terbaru
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4 # Mengambil kode repositori Anda
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        # Gunakan versi Node.js yang spesifik dan stabil yang bot Anda butuhkan.
-        # Jika tidak yakin, coba '18.x' atau '20.x'.
-        node-version: '20.x'
+      - name: Set up Python
+        uses: actions/setup-python@v5 # Menyiapkan lingkungan Python
+        with:
+          python-version: '3.9' # Sesuaikan dengan versi Python yang Anda gunakan (misal: 3.8, 3.10, dll.)
 
-    - name: Cache Node Modules
-      uses: actions/cache@v4
-      with:
-        path: ~/.npm
-        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-        restore-keys: |
-          ${{ runner.os }}-node-
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          # Opsional: Instal linter jika belum ada di requirements.txt
+          pip install flake8
 
-    - name: Install Dependencies
-      # --legacy-peer-deps bisa membantu mengatasi error instalasi
-      run: npm install --legacy-peer-deps
+      - name: Run Linter (Check Code Style)
+        # Langkah ini akan memeriksa konsistensi gaya kode
+        # Pastikan Anda memiliki flake8 di requirements.txt atau diinstal di langkah sebelumnya
+        run: flake8 . --max-line-length=120 --exclude=.git,__pycache__,venv
 
-    - name: Run Bot
-      # >>> PERBAIKAN UTAMA DI SINI <<<
-      # Menyediakan TELEGRAM_BOT_TOKEN sebagai variabel lingkungan
-      run: node bot.js
-      env:
-        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
-        GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-        # Jika ada variabel lingkungan lain yang dibutuhkan bot, tambahkan di sini.
-        # Contoh: OTHER_VAR: ${{ secrets.YOUR_OTHER_SECRET_NAME }}
+      - name: Verify Script Structure (Optional)
+        # Langkah ini hanya untuk memastikan script dapat dieksekusi dasar dan tidak ada error sintaks
+        # Ini BUKAN untuk menjalankan bot secara persisten!
+        run: python -c "import os; import google.generativeai as genai; import telegram; print('Basic imports successful.')"
+        # CATATAN: Jangan pernah memasukkan BOT_TOKEN atau GEMINI_API_KEY secara langsung di sini
+        # Ini hanya untuk verifikasi dasar struktur dan dependensi.
+
+      - name: Display Success Message
+        run: echo "CI workflow completed successfully! Code is ready for deployment."
+
+  # --- Contoh Tambahan: Job Deployment (Memerlukan Konfigurasi Lanjutan) ---
+  # Job ini TIDAK akan menjalankan bot secara persisten,
+  # melainkan akan melakukan deployment ke layanan hosting eksternal.
+  # deployment:
+  #   needs: build-and_lint # Job ini akan berjalan setelah 'build-and-lint' berhasil
+  #   runs-on: ubuntu-latest
+  #   environment: production # Opsional: Menggunakan environment GitHub untuk secret yang aman
+  #   if: github.ref == 'refs/heads/main' # Hanya deploy saat push ke branch utama
+
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v4
+
+  #     - name: Deploy to Remote Server (Contoh: menggunakan SSH)
+  #       # Ini hanyalah contoh. Konfigurasi sebenarnya sangat bergantung pada metode deployment Anda
+  #       uses: appleboy/ssh-action@v1.0.0
+  #       with:
+  #         host: ${{ secrets.SSH_HOST }}
+  #         username: ${{ secrets.SSH_USERNAME }}
+  #         key: ${{ secrets.SSH_PRIVATE_KEY }}
+  #         script: |
+  #           cd /path/to/your/bot/directory
+  #           git pull origin main
+  #           # Restart service bot Anda (misal: systemctl restart your_bot_service)
+  #           # Atau, jika menggunakan Docker, pull image terbaru dan jalankan ulang container
+  #           echo "Bot deployed and restarted on remote server."
+
+  #     - name: Deploy to Docker (Contoh: Build & Push ke Docker Hub)
+  #       # Jika Anda menggunakan Docker untuk hosting bot Anda
+  #       # uses: docker/build-push-action@v5
+  #       # with:
+  #       #   context: .
+  #       #   push: true
+  #       #   tags: yourusername/tg-gemini-bot:latest
+  #       #   username: ${{ secrets.DOCKER_USERNAME }}
+  #       #   password: ${{ secrets.DOCKER_PASSWORD }}
+  #       run: echo "Docker deployment steps would go here."
