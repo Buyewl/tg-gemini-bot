@@ -70,8 +70,11 @@ def handle_message(update_data):
                     f"{the_reply_content_is}\n"
                     f"{response_text}")
             else:
-                log = f"@{update.user_name} id:`{update.from_id}`{the_content_sent_is}\n{update.text}\n{the_reply_content_is}\n{response_text}"
-            send_log(log)
+                log = (
+                    f"@{update.user_name} id:`{update.from_id}`"
+                    f"{the_content_sent_is}\n{update.text}\n"
+                    f"{the_reply_content_is}\n{response_text}")
+                send_log(log)
 
     elif not authorized:
         if update.is_group:
@@ -80,7 +83,7 @@ def handle_message(update_data):
                 f"{group_no_permission_info}\nID:`{update.chat_id}`")
         else:
             send_message(
-            update.from_id, f"{user_no_permission_info}\nID:`{update.from_id}`")
+                update.from_id, f"{user_no_permission_info}\nID:`{update.from_id}`")
             log = f"@{update.user_name} id:`{update.from_id}`{no_rights_to_use},{the_content_sent_is}\n{update.text}"
         send_log(log)
         return
@@ -136,7 +139,7 @@ def handle_message(update_data):
                 f"{the_reply_content_is}\n{response_text}")
             send_image_log("", imageID)
             send_log(log)
-        
+
     else:
         send_message(
             update.chat_id, f"{unable_to_recognize_content_sent}\n\n/help")
