@@ -21,7 +21,7 @@ def send_log(text):
             data=payload)
 
 
-def send_image_log(text,imageID):
+def send_image_log(text, imageID):
     if is_debug_mode == "1":
         payload = {
         "chat_id": admin_id,
