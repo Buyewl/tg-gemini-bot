@@ -144,7 +144,9 @@ def handle_message(update_data):
         send_message(
             update.chat_id, f"{unable_to_recognize_content_sent}\n\n/help")
         if update.is_group:
-            log = f"@{update.user_name} id:`{update.from_id}` {group} @{update.group_name} id:`{update.chat_id}`{send_unrecognized_content}"
+            log = (
+                f"@{update.user_name} id:`{update.from_id}` {group} "
+                f"@{update.group_name} id:`{update.chat_id}`{send_unrecognized_content}")
         else:
             log = f"@{update.user_name} id:`{update.from_id}`{send_unrecognized_content}"
         send_log(log)
