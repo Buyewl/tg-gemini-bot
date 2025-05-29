@@ -56,7 +56,7 @@ def handle_message(update_data):
             f"{update.text}\n"
             f"```json\n{update_data}```")
         send_log(log)
-        authorized = is_authorized(update.is_group, update.from_id, update.user_name,  update.chat_id, update.group_name)
+    authorized = is_authorized(update.is_group, update.from_id, update.user_name,  update.chat_id, update.group_name)
     if update.type == "command":
         response_text = excute_command(update.from_id, update.text, update.from_type, update.chat_id)
         if response_text!= "":
