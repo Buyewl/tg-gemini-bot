@@ -50,12 +50,10 @@ class Update:
         self.file_id = self._file_id()
         self.user_name = update["message"]["from"].get(
             "username",
-            f" [{unnamed_user}](tg://openmessage?user_id={self.from_id})"
-)
+            f" [{unnamed_user}](tg://openmessage?user_id={self.from_id})")
         self.group_name = update["message"]["chat"].get(
             "username",
-            f" [{unnamed_group}](tg://openmessage?chat_id={str(self.chat_id)[4:]})"
-)
+            f" [{unnamed_group}](tg://openmessage?chat_id={str(self.chat_id)[4:]})")
         self.message_id: int = update["message"]["message_id"]
 
     def _is_group(self):
