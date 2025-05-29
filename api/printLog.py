@@ -24,10 +24,10 @@ def send_log(text):
 def send_image_log(text, imageID):
     if is_debug_mode == "1":
         payload = {
-        "chat_id": admin_id,
-        "caption": escape(text),
-        "parse_mode": "MarkdownV2",
-        "photo": imageID
-    }
+            "chat_id": admin_id,
+            "caption": escape(text),
+            "parse_mode": "MarkdownV2",
+            "photo": imageID
+        }
         requests.post(f"{TELEGRAM_API}/sendPhoto", data=payload)
 
