@@ -1,58 +1,32 @@
-# .github/workflows/ci.yml
-
-name: CI for tg-gemini-bot
+name: Run Telegram Bot
 
 on:
+  # Event 'push' akan memicu workflow setiap kali ada push ke branch 'main'
+  # Ini cocok untuk deployment otomatis setelah Anda melakukan perubahan kode.
   push:
     branches:
-      - main  # Ganti dengan branch utama repositori Anda (misal: master)
-  pull_request:
-    branches:
-      - main  # Ganti dengan branch utama repositori Anda
-  workflow_dispatch: # Memungkinkan trigger manual dari tab 'Actions' di GitHub
+      - main
+  # Event 'workflow_dispatch' memungkinkan Anda menjalankan workflow secara manual dari UI GitHub Actions.
+  workflow_dispatch:
 
 jobs:
-  build_and_lint:
-    runs-on: ubuntu-latest # Menjalankan job di lingkungan Ubuntu terbaru
+  build:
+    runs-on: ubuntu-latest # Menggunakan runner Ubuntu terbaru
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4 # Mengambil kode repositori Anda
+    - name: Checkout code
+      uses: actions/checkout@v4 # Mengunduh kode dari repositori Anda
 
-      - name: Set up Python
-        uses: actions/setup-python@v5 # Menyiapkan lingkungan Python
-        with:
-          python-version: '3.9' # Sesuaikan dengan versi Python yang Anda gunakan (misal: 3.8, 3.10, dll.)
+    - name: Set up Python
+      uses: actions/setup-python@v5 # Mengatur lingkungan Python
+      with:
+        python-version: '3.10' # Sesuaikan dengan versi Python yang Anda gunakan
 
-      - name: Install Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          # Pastikan flake8 terinstal. Lebih baik tambahkan ke requirements.txt
-          pip install flake8
+    - name: Install dependencies
+      run: pip install -r requirements.txt # Menginstal pustaka dari requirements.txt
 
-      - name: Run Linter (Check Code Style)
-        # Langkah ini akan memeriksa konsistensi gaya kode menggunakan flake8.
-        # Kesalahan yang Anda lihat (F403, F405, E30x, E501, dll.) perlu diperbaiki di KODE SUMBER Anda.
-        # Workflow ini hanya BERTUJUAN untuk MENDETEKSI kesalahan tersebut.
-        run: |
-          echo "Running Flake8 to check for code style issues..."
-          flake8 . --max-line-length=120 --exclude=.git,__pycache__,venv
-          if [ $? -ne 0 ]; then
-            echo "Flake8 found issues. Please fix them in your code files."
-            echo "Refer to the Flake8 output above for details."
-            exit 1 # Gagal jika ada error Flake8
-          else
-            echo "Flake8 found no issues. Great job!"
-          fi
-
-      - name: Verify Basic Script Imports (Optional - Not for running bot persistently)
-        # Langkah ini hanya untuk memastikan script dapat melakukan import dasar tanpa error fatal.
-        # Ini BUKAN untuk menjalankan bot secara persisten!
-        run: |
-          echo "Verifying basic script imports..."
-          python -c "import os; import sys; import telegram; import google.generativeai as genai; print('Basic imports successful.')"
-          echo "This step ensures core libraries are importable, but DOES NOT run the bot continuously."
-
-      - name: Display Success Message
-        run: echo "CI workflow completed successfully! Please fix any Flake8 issues in your code."
+    - name: Run Telegram Bot
+      # Menyediakan token bot sebagai variabel lingkungan untuk skrip Python
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      run: python bot.py # Menjalankan skrip bot utama Anda
