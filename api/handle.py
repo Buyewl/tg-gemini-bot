@@ -41,7 +41,7 @@ def handle_message(update_data):
 
     update = Update(update_data)
     if update.is_group:
-    log = (
+        log = (
         f"{event_received}\n"
         f"@{update.user_name} id:`{update.from_id}` {group} "
         f"@{update.group_name} id:`{update.chat_id}`\n"
@@ -49,7 +49,7 @@ def handle_message(update_data):
         f"{update.text}\n"
         f"```json\n{update_data}```")
     else:
-    log = (
+        log = (
         f"{event_received}\n"
         f"@{update.user_name} id:`{update.from_id}`\n"
         f"{the_content_sent_is}\n"
