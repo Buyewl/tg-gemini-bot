@@ -36,14 +36,25 @@ def handle_message(update_data):
     #    strupdate_data = str(update_data)
     #    start = strupdate_data.find("\'id\': ")
     #    from_id = strupdate_data[start + 6: start + 16]
-    #    send_message(from_id, f"You have sent an unknown event. Please send the following information to the bot administrator.\n{update_data}\n{e}")
+    #    send_message(from_id, f"You have sent an unknown event.\n{update_data}\n{e}")
     #    send_message(admin_id, f"收到了一个未知事件，原文为：\n{update_data}\n错误为：\n{e}")
 
     update = Update(update_data)
     if update.is_group:
-        log = f"{event_received}\n@{update.user_name} id:`{update.from_id}` {group} @{update.group_name} id:`{update.chat_id}`\n{the_content_sent_is}\n{update.text}\n```json\n{update_data}```"
+    log = (
+        f"{event_received}\n"
+        f"@{update.user_name} id:`{update.from_id}` {group} "
+        f"@{update.group_name} id:`{update.chat_id}`\n"
+        f"{the_content_sent_is}\n"
+        f"{update.text}\n"
+        f"```json\n{update_data}```")
     else:
-        log = f"{event_received}\n@{update.user_name} id:`{update.from_id}`\n{the_content_sent_is}\n{update.text}\n```json\n{update_data}```"
+    log = (
+        f"{event_received}\n"
+        f"@{update.user_name} id:`{update.from_id}`\n"
+        f"{the_content_sent_is}\n"
+        f"{update.text}\n"
+        f"```json\n{update_data}```")    
     send_log(log)
     authorized = is_authorized(update.is_group, update.from_id, update.user_name,  update.chat_id, update.group_name)
 
