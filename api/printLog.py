@@ -15,7 +15,7 @@ def send_log(text):
         "chat_id": admin_id,
         "text": escape(text),
         "parse_mode": "MarkdownV2",
-        }
+    }
         requests.post(f"{TELEGRAM_API}/sendMessage", data=payload)
 
 
