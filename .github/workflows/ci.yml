@@ -1,32 +1,48 @@
 name: Run Telegram Bot
 
 on:
-  # Event 'push' akan memicu workflow setiap kali ada push ke branch 'main'
-  # Ini cocok untuk deployment otomatis setelah Anda melakukan perubahan kode.
   push:
     branches:
       - main
-  # Event 'workflow_dispatch' memungkinkan Anda menjalankan workflow secara manual dari UI GitHub Actions.
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest # Menggunakan runner Ubuntu terbaru
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4 # Mengunduh kode dari repositori Anda
+      uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v5 # Mengatur lingkungan Python
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.10' # Sesuaikan dengan versi Python yang Anda gunakan
+        python-version: '3.10' # Atau versi Python yang Anda gunakan, misal '3.9'
+
+    - name: Display Python version
+      run: python --version # Opsional: Untuk debugging, memastikan Python terinstal
+
+    - name: Install pip
+      run: python -m ensurepip --upgrade # Memastikan pip terbaru
+
+    - name: Upgrade pip
+      run: pip install --upgrade pip # Memastikan pip terbaru
 
     - name: Install dependencies
-      run: pip install -r requirements.txt # Menginstal pustaka dari requirements.txt
+      run: |
+        # Memastikan requirements.txt ada sebelum instalasi
+        if [ -f requirements.txt ]; then
+          echo "Installing dependencies from requirements.txt..."
+          pip install -r requirements.txt
+        else
+          echo "requirements.txt not found. Installing python-telegram-bot directly."
+          pip install python-telegram-bot
+        fi
+
+    - name: Verify installation
+      run: pip show python-telegram-bot # Opsional: Memverifikasi apakah pustaka terinstal
 
     - name: Run Telegram Bot
-      # Menyediakan token bot sebagai variabel lingkungan untuk skrip Python
       env:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      run: python bot.py # Menjalankan skrip bot utama Anda
+      run: python bot.py
