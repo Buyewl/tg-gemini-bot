@@ -42,22 +42,21 @@ def handle_message(update_data):
     update = Update(update_data)
     if update.is_group:
         log = (
-        f"{event_received}\n"
-        f"@{update.user_name} id:`{update.from_id}` {group} "
-        f"@{update.group_name} id:`{update.chat_id}`\n"
-        f"{the_content_sent_is}\n"
-        f"{update.text}\n"
-        f"```json\n{update_data}```")
+            f"{event_received}\n"
+            f"@{update.user_name} id:`{update.from_id}` {group} "
+            f"@{update.group_name} id:`{update.chat_id}`\n"
+            f"{the_content_sent_is}\n"
+            f"{update.text}\n"
+            f"```json\n{update_data}```")
     else:
         log = (
-        f"{event_received}\n"
-        f"@{update.user_name} id:`{update.from_id}`\n"
-        f"{the_content_sent_is}\n"
-        f"{update.text}\n"
-        f"```json\n{update_data}```")    
-    send_log(log)
-    authorized = is_authorized(update.is_group, update.from_id, update.user_name,  update.chat_id, update.group_name)
-
+            f"{event_received}\n"
+            f"@{update.user_name} id:`{update.from_id}`\n"
+            f"{the_content_sent_is}\n"
+            f"{update.text}\n"
+            f"```json\n{update_data}```")
+        send_log(log)
+        authorized = is_authorized(update.is_group, update.from_id, update.user_name,  update.chat_id, update.group_name)
     if update.type == "command":
         response_text = excute_command(update.from_id, update.text, update.from_type, update.chat_id)
         if response_text!= "":
