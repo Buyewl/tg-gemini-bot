@@ -16,7 +16,7 @@ def send_log(text):
         "text": escape(text),
         "parse_mode": "MarkdownV2",
         }
-            requests.post(f"{TELEGRAM_API}/sendMessage", data=payload)
+        requests.post(f"{TELEGRAM_API}/sendMessage", data=payload)
 
 
 def send_image_log(text,imageID):
