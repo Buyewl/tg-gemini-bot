@@ -49,14 +49,13 @@ class Update:
         self.photo_caption = self._photo_caption()
         self.file_id = self._file_id()
         self.user_name = update["message"]["from"].get(
-    "username",
-    f" [{unnamed_user}](tg://openmessage?user_id={self.from_id})" # Argumen kedua, dipecah ke baris baru
+            "username",
+            f" [{unnamed_user}](tg://openmessage?user_id={self.from_id})"
 )
         self.group_name = update["message"]["chat"].get(
-    "username",
-    f" [{unnamed_group}](tg://openmessage?chat_id={str(self.chat_id)[4:]})"
+            "username",
+            f" [{unnamed_group}](tg://openmessage?chat_id={str(self.chat_id)[4:]})"
 )
-        self.group_name = update["message"]["chat"].get("username", f" [{unnamed_group}](tg://openmessage?chat_id={str(self.chat_id)[4:]})")
         self.message_id: int = update["message"]["message_id"]
 
     def _is_group(self):
