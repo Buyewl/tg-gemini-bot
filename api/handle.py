@@ -59,7 +59,7 @@ def handle_message(update_data):
     authorized = is_authorized(update.is_group, update.from_id, update.user_name,  update.chat_id, update.group_name)
     if update.type == "command":
         response_text = excute_command(update.from_id, update.text, update.from_type, update.chat_id)
-        if response_text! = "":
+        if response_text != "":
             send_message(update.chat_id, response_text)
             if update.is_group:
                 log = f"@{update.user_name} id:`{update.from_id}` {group} @{update.group_name} id:`{update.chat_id}`{the_content_sent_is}\n{update.text}\n{the_reply_content_is}\n{response_text}"
